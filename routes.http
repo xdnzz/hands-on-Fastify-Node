@@ -2,7 +2,7 @@ POST http://localhost:3333/videos
 Content-Type: application/json
 
 {
-    "title":"Video 01",
+    "title":"Video para ser deletado",
     "description" :"first video",
     "duration": 180
 }
@@ -16,7 +16,7 @@ GET http://localhost:3333/videos
 
 ###
 
-PUT http://localhost:3333/videos/9fb05466-23ce-432b-9d46-7ab5fff50c43
+PUT http://localhost:3333/videos/71d99c71-5a01-4694-b36e-33df8de97651
 Content-Type: application/json
 
 {
@@ -27,4 +27,4 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:3333/videos/9fb05466-23ce-432b-9d46-7ab5fff50c43
+DELETE http://localhost:3333/videos/830aaa91-ae85-4131-9d7c-fc89c45ea62d

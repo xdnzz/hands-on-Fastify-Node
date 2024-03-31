@@ -1,13 +1,13 @@
-import { DatabaseMemory } from './database-memory.js'
 import { fastify } from 'fastify'
+import { DatabasePostgres } from './database-postgres.js'
 
 const server = fastify()
 
-const database = new DatabaseMemory()
+const database = new DatabasePostgres()
 
-server.post('/videos', (req, reply) => {
+server.post('/videos', async (req, reply) => {
     const { title, description, duration } = req.body
-    database.create({
+   await database.create({
         title,
         description,
         duration,
@@ -16,18 +16,18 @@ server.post('/videos', (req, reply) => {
 
 })
 
-server.get('/videos', () => {
-    const videos = database.list()
-    console.log(videos)
+server.get('/videos', async (req, reply) => {
+    const search = req.query.search
+    const videos = await database.list(search)
     return videos
 })
 
-server.put('/videos/:id', (req, reply) => {
+server.put('/videos/:id', async (req, reply) => {
     const videoId = req.params.id
 
     const { title, description, duration } = req.body
 
-    database.update(videoId, {
+    await database.update(videoId, {
         title,
         description,
         duration
@@ -35,9 +35,9 @@ server.put('/videos/:id', (req, reply) => {
     return reply.status(204).send()
 })
 
-server.delete('/videos/:id', (req, reply) => {
+server.delete('/videos/:id', async (req, reply) => {
     const videoId = req.params.id
-    database.delete(videoId)
+    await database.delete(videoId)
     return reply.status(204).send()
 })
 
